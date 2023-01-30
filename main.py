@@ -51,6 +51,11 @@ def user_settings():
     return 'user\'s settings'
 
 
-@app.route("/user/documents/", methods=['GET'])
+@app.route("/user/documents/", methods=['GET', 'POST'])
 def user_documents():
     return 'user\'s documents'
+
+
+@app.route("/user/templates/", methods=['GET', 'POST'])
+def user_templates():
+    return 'user\'s templates'
