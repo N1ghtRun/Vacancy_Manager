@@ -1,28 +1,36 @@
 from flask import Flask
+import app_data
 
 app = Flask(__name__)
 
 
 @app.route('/vacancy/', methods=['GET', 'POST'])
 def all_vacancies():
-    return 'all vacancies'
+    return app_data.vacancy_data
 
 
-# на занятті метод DELETE не був прописаний у аналогічній функції, але мені здається, що користувач має мати змогу
-# видаляти як вакансії, так і їхні івенти
-@app.route('/vacancy/<id>/', methods=['GET', 'PUT', 'DELETE'])
-def vacancy_single():
-    return 'single vacancy'
+@app.route('/vacancy/<vacancy_id>/', methods=['GET', 'PUT', 'DELETE'])
+def vacancy_single(vacancy_id):
+    for vacancy in app_data.vacancy_data:
+        if vacancy['id'] == vacancy_id:
+            return vacancy
 
 
-@app.route('/vacancy/<id>/events/', methods=['GET', 'POST'])
-def vacancy_events():
-    return 'all events'
+@app.route('/vacancy/<vacancy_id>/events/', methods=['GET', 'POST'])
+def vacancy_events(vacancy_id):
+    event_list = []
+    for event in event_list:
+        if event['vacancy_id'] == vacancy_id:
+            event_list.append(event)
+
+    return event_list
 
 
-@app.route('/vacancy/<id>/events/<event_id>/', methods=['GET', 'PUT', 'DELETE'])
-def vacancy_event_single():
-    return 'single event'
+@app.route('/vacancy/<vacancy_id>/events/<event_id>/', methods=['GET', 'PUT', 'DELETE'])
+def vacancy_event_single(event_id):
+    for event in app_data.event_data:
+        if event['id'] == event_id:
+            return event
 
 
 @app.route('/vacancy/<id>/history', methods=['GET'])
@@ -40,7 +48,6 @@ def user_calendar():
     return 'user\'s calendar'
 
 
-# PUT на випадок, якщо користувач захоче змінити свій mail
 @app.route("/user/mail/", methods=['GET', 'PUT'])
 def user_mail():
     return 'user\'s mail'
