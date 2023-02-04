@@ -27,7 +27,7 @@ def vacancy_events(vacancy_id):
 
 
 @app.route('/vacancy/<vacancy_id>/events/<event_id>/', methods=['GET', 'PUT', 'DELETE'])
-def vacancy_event_single(event_id):
+def vacancy_event_single(vacancy_id, event_id):
     for event in app_data.event_data:
         if event['id'] == event_id:
             return event
