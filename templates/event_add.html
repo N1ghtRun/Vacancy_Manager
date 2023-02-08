@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+
+<form action="/vacancy/{{ vacancy_id }}/events/" method="POST">
+    <input type="text" name="description" placeholder="description">
+    <input type="text" name="event_date" placeholder="event date">
+    <input type="text" name="title" placeholder="title">
+    <input type="text" name="due_to_date" placeholder="due to date">
+    <input type="submit" value="Add Event">
+</form>
+</br>
+<div>
+    {% for event in events %}
+    {{ event }}
+    </br>
+    {% endfor %}
+</div>
+</body>
+</html>
