@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
 import db_processing
-import app_data
 
 app = Flask(__name__)
 
