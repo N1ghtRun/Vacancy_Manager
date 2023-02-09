@@ -5,6 +5,7 @@
     <title>Vacancies</title>
 </head>
 <body>
+
 <form action="/vacancy/" method="POST">
     <input type="text" name="position_name" placeholder="position name">
     <input type="text" name="company" placeholder="company">
@@ -13,10 +14,12 @@
     <input type="text" name="comment" placeholder="comment">
     <input type="submit" value="Add Vacancy">
 </form>
-</br>
+<br/>
+<a href="../">back</a>
+<br/>
 <div>
     {% for vacancy in vacancies %}
-    {{ vacancy }}
+    <a href="{{ vacancy.0 }}/">{{ vacancy }}</a>
     </br>
     {% endfor %}
 </div>

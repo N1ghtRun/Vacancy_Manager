@@ -13,10 +13,12 @@
     <input type="text" name="due_to_date" placeholder="due to date">
     <input type="submit" value="Add Event">
 </form>
-</br>
+<br/>
+<a href="../">back</a>
+<br/>
 <div>
     {% for event in events %}
-    {{ event }}
+    <a href="{{ event.0 }}">{{ event }}</a>
     </br>
     {% endfor %}
 </div>

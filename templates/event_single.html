@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single event with id number {{ object.id }}</title>
+</head>
+<body>
+
+<h2>Single event with id number {{ object.id }}</h2>
+<a href="../">back</a>
+<form action="/vacancy/{{object.vacancy_id}}/events/{{ object.id }}/" method="POST">
+    <p>id (readonly):           <input type="text" name="id" value="{{ object.id }}" readonly></p>
+    <p>vacancy id (readonly):   <input type="text" name="vacancy_id" value="{{ object.vacancy_id }}" readonly></p>
+    <p>description:             <input type="text" name="description" value="{{ object.description }}"></p>
+    <p>event date:              <input type="text" name="event_date" value="{{ object.event_date }}"></p>
+    <p>title:                   <input type="text" name="title" value="{{ object.title }}"></p>
+    <p>due to date:             <input type="text" name="due_to_date" value="{{ object.due_to_date }}"></p>
+    <input type="submit" value="EDIT EVENT">
+</form>
+
+</body>
+</html>
