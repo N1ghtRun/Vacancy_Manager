@@ -39,14 +39,15 @@ def all_vacancies():
 def vacancy_single(vacancy_id):
     if request.method == 'POST':
         position_name = request.form.get('position_name')
+        status = request.form.get('status')
         company = request.form.get('company')
         description = request.form.get('description')
         contacts_ids = request.form.get('contacts_ids')
         comment = request.form.get('comment')
         with db_processing.DB() as db:
             db.update(f"UPDATE vacancy SET position_name = '{position_name}', company = '{company}', "
-                      f"description = '{description}', contacts_ids = '{contacts_ids}', comment = '{comment}' "
-                      f"WHERE id == {vacancy_id}")
+                      f"status = '{status}', description = '{description}', contacts_ids = '{contacts_ids}', "
+                      f"comment = '{comment}' WHERE id == {vacancy_id}")
 
     with db_processing.DB(rows_check=True) as db:
         result = db.query(f"SELECT * FROM vacancy WHERE id == {vacancy_id}")
