@@ -42,11 +42,11 @@ def vacancy_single(vacancy_id):
         status = request.form.get('status')
         company = request.form.get('company')
         description = request.form.get('description')
-        contacts_ids = request.form.get('contacts_ids')
+        contact_ids = request.form.get('contact_ids')
         comment = request.form.get('comment')
         with db_processing.DB() as db:
             db.update(f"UPDATE vacancy SET position_name = '{position_name}', company = '{company}', "
-                      f"status = '{status}', description = '{description}', contacts_ids = '{contacts_ids}', "
+                      f"status = '{status}', description = '{description}', contacts_ids = '{contact_ids}', "
                       f"comment = '{comment}' WHERE id == {vacancy_id}")
 
     with db_processing.DB(rows_check=True) as db:
