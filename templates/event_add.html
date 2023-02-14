@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <title>Events</title>
 </head>
@@ -16,11 +20,26 @@
 <br/>
 <a href="../">back</a>
 <br/>
-<div>
+
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Event date</th>
+        <th scope="col">Due to date</th>
+    </tr>
+    </thead>
+    <tbody>
+
     {% for event in events %}
-    <a href="{{ event.0 }}">{{ event }}</a>
-    </br>
+    <tr>
+        <th scope="row">{{ event.id }}</th>
+        <th scope="row"><a href="{{ event.id }}/">{{ event }}</a></th>
+        <th scope="row">{{ event.event_date }}</th>
+        <th scope="row">{{ event.due_to_date }}</th>
+    </tr>
     {% endfor %}
-</div>
+
 </body>
 </html>
