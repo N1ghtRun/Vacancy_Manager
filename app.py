@@ -126,3 +126,7 @@ def user_documents():
 @app.route("/user/templates/", methods=['GET', 'POST'])
 def user_templates():
     return 'user\'s templates'
+
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000)
