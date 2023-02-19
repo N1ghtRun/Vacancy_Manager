@@ -29,9 +29,9 @@ class EmailCreds(Base):
     user_id = Column(Integer, unique=True, nullable=False)
     email = Column(String(120), unique=True, nullable=False)
     login = Column(String(50), unique=True, nullable=False)
-    password = Column(Text(24), nullable=False)
-    pop_server = Column(Text(120))
-    smtp_server = Column(Text(120))
+    password = Column(String(24), nullable=False)
+    pop_server = Column(String(120))
+    smtp_server = Column(String(120))
 
     def __init__(self, user_id, email, login, password, pop_server, smtp_server):
         self.user_id = user_id
