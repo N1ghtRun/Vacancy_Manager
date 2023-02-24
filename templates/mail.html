@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Mail</title>
+</head>
+<body>
+
+<div class="container">
+
+    {% include 'inc/navbar.html' %}
+
+    <div class="content">
+        <div class="email-send">
+            <h2>Send Email</h2>
+            <div class="form">
+                <form action="/user/mail/" method="POST" id="email-form">
+                    <div class="form-group">
+                        <label for="recipient-email">Receiver email address:</label>
+                        <input type="email" class="form-control" id="recipient-email" name="recipient_email"
+                               placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="email-subject">Subject:</label>
+                        <input type="text" class="form-control" id="email-subject" name="email_subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="email-content">Email text: </label>
+                        <textarea class="form-control" id="email-content" name="email_content" rows="10"></textarea>
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block" form="email-form">Send</button>
+            </div>
+        </div>
+        <br>
+        <div class="email-received">
+            <h2>Most recent received Emails</h2><br>
+            {% for email in emails %}
+            <div class="col-12">
+                <p><b>Subject:</b> {{ email.subject }}</p>
+                <p><b>Date:</b> {{ email.date }}</p>
+                <p><b>Sender:</b> {{ email.sender }}</p>
+                <p>{{ email.content }}</p>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

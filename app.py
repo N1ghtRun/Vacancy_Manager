@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import al_db
+import email_lib
 import models
 
 app = Flask(__name__)
@@ -108,9 +109,36 @@ def user_calendar():
     return 'user\'s calendar'
 
 
-@app.route("/user/mail/", methods=['GET', 'PUT'])
+@app.route("/user/mail/", methods=['GET', 'POST'])
 def user_mail():
-    return 'user\'s mail'
+    email_settings = al_db.db_session.query(models.EmailCreds).filter_by(user_id=1).first()
+    email_obj = email_lib.EmailWrapper(
+        user_email=email_settings.email,
+        login=email_settings.login,
+        password=email_settings.password,
+        smtp_server=email_settings.smtp_server,
+        pop_server=email_settings.pop_server,
+        imap_server=email_settings.imap_server,
+        smtp_port=email_settings.smtp_port,
+        pop_port=email_settings.pop_port,
+        imap_port=email_settings.imap_port,
+    )
+
+    if request.method == 'POST':
+        recipient = request.form.get('recipient_email')
+        email_text = request.form.get('email_content')
+        email_subject = request.form.get('email_subject')
+        email_obj.send_email(recipient, email_subject, email_text)
+        return "email sent"
+
+    if email_settings.imap_server and email_settings.imap_port:
+        email_list = email_obj.imap_receiver()
+    elif email_settings.pop_server and email_settings.pop_port:
+        email_list = email_obj.pop3_receiver()
+    else:
+        email_list = None
+
+    return render_template('mail.html', emails=email_list)
 
 
 @app.route("/user/settings/", methods=['GET', 'PUT'])

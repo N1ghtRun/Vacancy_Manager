@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Single vacancy with id number {{ object.id }}</title>
 </head>
 <body>
 
-<h2>Single vacancy with id number {{ object.id }}</h2>
-<a href="../">back</a><br/>
-<a href="events/">events</a><br/>
-<form action="/vacancy/{{ object.id }}/" method="POST">
-    <p>id (readonly):              <input type="text" name="id" value="{{ object.id }}" readonly></p>
-    <p>creation date (readonly):   <input type="text" name="creation_date" value="{{ object.creation_date }}" readonly>
-    </p>
-    <p>status:                     <input type="text" name="status" value="{{ object.status }}"></p>
-    <p>company:                    <input type="text" name="company" value="{{ object.company }}"></p>
-    <p>contact's IDs:              <input type="text" name="contact_ids" value="{{ object.contacts_ids }}"></p>
-    <p>description:                <input type="text" name="description" value="{{ object.description }}"></p>
-    <p>position name:              <input type="text" name="position_name" value="{{ object.position_name }}"></p>
-    <p>comment:                    <input type="text" name="comment" value="{{ object.comment }}"></p>
-    <p>user ID (readonly):         <input type="text" name="user_id" value="{{ object.user_id }}" readonly></p>
-    <input type="submit" value="EDIT VACANCY">
-</form>
+<div class="container">
 
+    {% include 'inc/navbar.html' %}
+
+
+    <h2>Single vacancy with id number {{ object.id }}</h2>
+    <a href="../">back</a><br/>
+    <a href="events/">events</a><br/>
+    <form action="/vacancy/{{ object.id }}/" method="POST">
+        <p>id (readonly): <input type="text" name="id" value="{{ object.id }}" readonly></p>
+        <p>creation date (readonly): <input type="text" name="creation_date" value="{{ object.creation_date }}"
+                                            readonly>
+        </p>
+        <p>status: <input type="text" name="status" value="{{ object.status }}"></p>
+        <p>company: <input type="text" name="company" value="{{ object.company }}"></p>
+        <p>contact's IDs: <input type="text" name="contact_ids" value="{{ object.contacts_ids }}"></p>
+        <p>description: <input type="text" name="description" value="{{ object.description }}"></p>
+        <p>position name: <input type="text" name="position_name" value="{{ object.position_name }}"></p>
+        <p>comment: <input type="text" name="comment" value="{{ object.comment }}"></p>
+        <p>user ID (readonly): <input type="text" name="user_id" value="{{ object.user_id }}" readonly></p>
+        <input type="submit" value="EDIT VACANCY">
+    </form>
+</div>
 </body>
 </html>

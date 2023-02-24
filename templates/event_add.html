@@ -10,36 +10,38 @@
 </head>
 <body>
 
-<form action="/vacancy/{{ vacancy_id }}/events/" method="POST">
-    <input type="text" name="description" placeholder="description">
-    <input type="text" name="event_date" placeholder="event date">
-    <input type="text" name="title" placeholder="title">
-    <input type="text" name="due_to_date" placeholder="due to date">
-    <input type="submit" value="Add Event">
-</form>
-<br/>
-<a href="../">back</a>
-<br/>
+<div class="container">
 
-<table class="table table-dark">
-    <thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Event date</th>
-        <th scope="col">Due to date</th>
-    </tr>
-    </thead>
-    <tbody>
+    {% include 'inc/navbar.html' %}
+    <form action="/vacancy/{{ vacancy_id }}/events/" method="POST">
+        <input type="text" name="description" placeholder="description">
+        <input type="text" name="event_date" placeholder="event date">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="due_to_date" placeholder="due to date">
+        <input type="submit" value="Add Event">
+    </form>
+    <br/>
 
-    {% for event in events %}
-    <tr>
-        <th scope="row">{{ event.id }}</th>
-        <th scope="row"><a href="{{ event.id }}/">{{ event }}</a></th>
-        <th scope="row">{{ event.event_date }}</th>
-        <th scope="row">{{ event.due_to_date }}</th>
-    </tr>
-    {% endfor %}
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Event date</th>
+            <th scope="col">Due to date</th>
+        </tr>
+        </thead>
+        <tbody>
 
+        {% for event in events %}
+        <tr>
+            <th scope="row">{{ event.id }}</th>
+            <th scope="row"><a href="{{ event.id }}/">{{ event }}</a></th>
+            <th scope="row">{{ event.event_date }}</th>
+            <th scope="row">{{ event.due_to_date }}</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+</div>
 </body>
 </html>

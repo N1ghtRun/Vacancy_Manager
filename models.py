@@ -30,8 +30,12 @@ class EmailCreds(Base):
     email = Column(String(120), unique=True, nullable=False)
     login = Column(String(50), unique=True, nullable=False)
     password = Column(String(24), nullable=False)
-    pop_server = Column(String(120))
     smtp_server = Column(String(120))
+    smtp_port = Column(Integer)
+    pop_server = Column(String(120))
+    pop_port = Column(Integer)
+    imap_server = Column((String(120)))
+    imap_port = Column(Integer)
 
     def __init__(self, user_id, email, login, password, pop_server, smtp_server):
         self.user_id = user_id
