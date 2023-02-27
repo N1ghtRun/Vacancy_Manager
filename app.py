@@ -39,7 +39,7 @@ def all_vacancies():
         contacts_id = str(mongo_db.collection.insert_one(new_contact).inserted_id)
 
         # adding new entry to PostgresDB
-        current_vacancy = models.Vacancy(position_name, company, description, contacts_id, comment, 0, 1)
+        current_vacancy = models.Vacancy(position_name, company, description, contacts_id, comment, 0, user_id)
         al_db.db_session.add(current_vacancy)
         al_db.db_session.commit()
 
