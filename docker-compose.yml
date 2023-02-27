@@ -8,6 +8,7 @@ services:
       FLASK_DEBUG: "true"
       DB_HOST: "postgres"
     hostname: "web"
+
   postgres:
     image: "postgres:13.2"
     ports:
@@ -15,3 +16,23 @@ services:
     environment:
       POSTGRES_PASSWORD: "mysecretpassword"
       hostname: "postgres"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    hostname: "mongodb"
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/

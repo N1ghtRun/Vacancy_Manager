@@ -77,7 +77,10 @@ class EmailWrapper:
                         if charset:
                             content = content.decode(charset)
                         message_dict['content'] = content
-                        content = re.sub(r'http\S+', '', content)  # Remove URLs
+                        try:
+                            content = re.sub(r'http\S+', '', content)  # Remove URLs
+                        except:
+                            pass
                         message_dict['content'] = content.strip()  # Strip whitespace from the beginning and end
                         break
                     elif content_type.startswith('image/') or content_type.startswith(
@@ -147,7 +150,7 @@ class EmailWrapper:
                         charset = part.get_content_charset()
                         if charset:
                             content = content.decode(charset)
-                        content = re.sub(r'http\S+', '', content)  # Remove URLs
+                        # content = re.sub(r'http\S+', '', content)  # Remove URLs
                         message_dict['content'] = content.strip()  # Strip whitespace from the beginning and end
                         break
                     elif content_type.startswith('image/') or content_type.startswith(

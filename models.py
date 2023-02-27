@@ -53,7 +53,7 @@ class Vacancy(Base):
     creation_date = Column(DateTime, default=datetime.utcnow())
     status = Column(Integer, nullable=False, default=0)
     company = Column(String(120), nullable=False)
-    contacts_ids = Column(String(16))
+    contacts_ids = Column(String(240))
     description = Column(Text, nullable=False)
     position_name = Column(String(50), nullable=False)
     comment = Column(Text, nullable=True)

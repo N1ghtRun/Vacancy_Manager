@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template
 import al_db
+import mongo_db
+from bson.objectid import ObjectId
 import email_lib
 import models
 
@@ -19,10 +21,25 @@ def all_vacancies():
         position_name = request.form.get('position_name')
         company = request.form.get('company')
         description = request.form.get('description')
-        contacts_ids = request.form.get('contacts_ids')
         comment = request.form.get('comment')
+        contacts_name = request.form.get('contacts_name')
+        contacts_email = request.form.get('contacts_email')
+        contacts_phone = request.form.get('contacts_phone')
+        contacts_messanger = request.form.get('contacts_messanger')
 
-        current_vacancy = models.Vacancy(position_name, company, description, contacts_ids, comment, 1, 1)
+        # creating new document in MongoDB
+        new_contact = {
+            "name": contacts_name,
+            "email": contacts_email,
+            "phone": contacts_phone,
+            "messanger": contacts_messanger,
+            "test": "test"
+        }
+        # mongo_db.collection.insert_one(new_contact)
+        contacts_id = str(mongo_db.collection.insert_one(new_contact).inserted_id)
+
+        # adding new entry to PostgresDB
+        current_vacancy = models.Vacancy(position_name, company, description, contacts_id, comment, 0, 1)
         al_db.db_session.add(current_vacancy)
         al_db.db_session.commit()
 
@@ -39,6 +56,10 @@ def vacancy_single(vacancy_id):
         description = request.form.get('description')
         contact_ids = request.form.get('contact_ids')
         comment = request.form.get('comment')
+        # contacts_name = request.form.get('contacts_name')
+        # contacts_email = request.form.get('contacts_email')
+        # contacts_phone = request.form.get('contacts_phone')
+        # contacts_messanger = request.form.get('contacts_messanger')
 
         al_db.db_session.query(models.Vacancy).filter(models.Vacancy.id == vacancy_id).update(
             {models.Vacancy.position_name: position_name,
@@ -52,7 +73,15 @@ def vacancy_single(vacancy_id):
         al_db.db_session.commit()
 
     result = al_db.db_session.query(models.Vacancy).get(vacancy_id)
-    return render_template('vacancy_single.html', object=result)
+    contacts = []
+
+    # contact's ID's in DB should be separated by a space(" ")
+    ids = str(result.contacts_ids).split(" ")
+    for item in ids:
+        contact = mongo_db.collection.find_one({'_id': ObjectId(item)})
+        contacts.append(contact)
+
+    return render_template('vacancy_single.html', object=result, contacts=contacts)
 
 
 @app.route('/vacancy/<int:vacancy_id>/events/', methods=['GET', 'POST'])

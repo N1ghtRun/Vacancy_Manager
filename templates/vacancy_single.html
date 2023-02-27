@@ -30,6 +30,16 @@
         <p>user ID (readonly): <input type="text" name="user_id" value="{{ object.user_id }}" readonly></p>
         <input type="submit" value="EDIT VACANCY">
     </form>
+    <br>
+    <h2>Contacts</h2>
+
+    {% for contact in contacts %}
+    <p>Name: {{ contact.name }}</p>
+    <p>Email: {{ contact.email }}</p>
+    <p>Phone: {{ contact.phone }}</p>
+    <p>Messanger: {{ contact.messanger }}</p>
+    <p>-----------------------------------</p>
+    {% endfor %}
 </div>
 </body>
 </html>
