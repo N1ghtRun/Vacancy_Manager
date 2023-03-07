@@ -5,8 +5,8 @@ import email
 
 
 class EmailWrapper:
-    def __init__(self, user_email, login, password, smtp_server, pop_server, imap_server, smtp_port, pop_port,
-                 imap_port):
+    def __init__(self, user_email, login, password, smtp_server, smtp_port, pop_server=0, imap_server=0, pop_port=0,
+                 imap_port=0):
         self.user_email = user_email
         self.login = login
         self.password = password
@@ -23,6 +23,20 @@ class EmailWrapper:
             message = 'Subject: {}\n\n{}'.format(subject, text)
             server.login(self.login, self.password)
             server.sendmail(self.user_email, recipient, message)
+
+    def imap_connect(self):
+        # connect to the server
+        imap_conn = imaplib.IMAP4_SSL(self.imap_server, self.imap_port)
+
+        # Log in to the server
+        imap_conn.login(self.user_email, self.password)
+
+        # select the mailbox to search
+        return imap_conn.select("inbox")
+
+    def imap_receive(self):
+        imap_conn = self.imap_connect()
+
 
     def imap_receiver(self):
 

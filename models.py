@@ -45,6 +45,10 @@ class EmailCreds(Base):
         self.pop_server = pop_server
         self.smtp_server = smtp_server
 
+    def get_mandatory_fields(self):
+        return {'login': self.login, 'password': self.password, 'user_email': self.email,
+                'smtp_server': self.smtp_server, 'smtp_port': self.smtp_port}
+
 
 class Vacancy(Base):
     __tablename__ = 'vacancy'

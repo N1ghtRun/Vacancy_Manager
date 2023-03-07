@@ -2,12 +2,22 @@ version: "3.9"
 services:
   web:
     build: .
+    command: python3 app.py
     ports:
       - "5001:5001"
     environment:
       FLASK_DEBUG: "true"
       DB_HOST: "postgres"
+      RABBIT_HOST: "rabbit_host"
     hostname: "web"
+
+  celery_worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=INFO --purge --pool=solo
+    environment:
+      RABBIT_HOST: "rabbit_host"
+      DB_HOST: "postgres"
+    hostname: "celery_worker"
 
   postgres:
     image: "postgres:13.2"
@@ -36,3 +46,10 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+  rabbitmq:
+    image: "rabbitmq:3-management-alpine"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: "rabbit_host"

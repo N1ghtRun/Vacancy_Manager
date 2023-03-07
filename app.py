@@ -4,6 +4,8 @@ import mongo_db
 from bson.objectid import ObjectId
 import email_lib
 import models
+import celery_worker
+
 
 app = Flask(__name__)
 
@@ -56,10 +58,6 @@ def vacancy_single(vacancy_id):
         description = request.form.get('description')
         contact_ids = request.form.get('contact_ids')
         comment = request.form.get('comment')
-        # contacts_name = request.form.get('contacts_name')
-        # contacts_email = request.form.get('contacts_email')
-        # contacts_phone = request.form.get('contacts_phone')
-        # contacts_messanger = request.form.get('contacts_messanger')
 
         al_db.db_session.query(models.Vacancy).filter(models.Vacancy.id == vacancy_id).update(
             {models.Vacancy.position_name: position_name,
@@ -157,7 +155,8 @@ def user_mail():
         recipient = request.form.get('recipient_email')
         email_text = request.form.get('email_content')
         email_subject = request.form.get('email_subject')
-        email_obj.send_email(recipient, email_subject, email_text)
+        celery_worker.send_mail.apply_async(args=[email_settings.id, recipient, email_subject, email_text])
+        # email_obj.send_email(recipient, email_subject, email_text)
         return "email sent"
 
     if email_settings.imap_server and email_settings.imap_port:
