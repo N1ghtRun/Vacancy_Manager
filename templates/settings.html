@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h2>Email credentials</h2>
+<form method="post" id="email-credentials">
+    <div class="form-group">
+        <label for="email">Email: </label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ email_creds.email }}">
+    </div>
+    <div class="form-group">
+        <label for="login">Login:</label>
+        <input type="text" class="form-control" id="login" name="login" value="{{ email_creds.login }}">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" value="{{ email_creds.password }}">
+    </div>
+    <div class="form-group">
+        <label for="smtp-server">SMTP server</label>
+        <input type="text" class="form-control" id="smtp-server" name="smtp_server" value="{{ email_creds.smtp_server }}">
+    </div>
+    <div class="form-group">
+        <label for="smtp-port">SMTP port:</label>
+        <input type="number" class="form-control" id="smtp-port" name="smtp_port" value="{{ email_creds.smtp_port }}">
+    </div>
+    <div class="form-group">
+        <label for="imap-server">IMAP server:</label>
+        <input type="text" class="form-control" id="imap-server" name="imap_server" value="{{ email_creds.imap_server }}">
+    </div>
+    <div class="form-group">
+        <label for="imap-port">IMAP port:</label>
+        <input type="number" class="form-control" id="imap-port" name="imap_port" value="{{ email_creds.imap_port }}">
+    </div>
+    <div class="form-group">
+        <label for="pop-server">POP server:</label>
+        <input type="text" class="form-control" id="pop-server" name="pop_server" value="{{ email_creds.pop_server }}">
+    </div>
+    <div class="form-group">
+        <label for="pop-port">POP port:</label>
+        <input type="number" class="form-control" id="pop-port" name="pop_port" value="{{ email_creds.pop_port }}">
+    </div>
+</form>
+<br>
+<button type="submit" class="btn btn-secondary btn-lg btn-block" form="email-credentials">Submit</button>
+
+{% endblock %}

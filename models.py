@@ -37,13 +37,18 @@ class EmailCreds(Base):
     imap_server = Column((String(120)))
     imap_port = Column(Integer)
 
-    def __init__(self, user_id, email, login, password, pop_server, smtp_server):
+    def __init__(self, user_id, email, login, password, smtp_server, smtp_port, imap_server, imap_port, pop_server,
+                 pop_port):
         self.user_id = user_id
         self.email = email
         self.login = login
         self.password = password
-        self.pop_server = pop_server
         self.smtp_server = smtp_server
+        self.smtp_port = smtp_port
+        self.imap_server = imap_server
+        self.imap_port = imap_port
+        self.pop_server = pop_server
+        self.pop_port = pop_port
 
     def get_mandatory_fields(self):
         return {'login': self.login, 'password': self.password, 'user_email': self.email,
