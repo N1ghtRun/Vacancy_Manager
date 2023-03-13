@@ -268,7 +268,7 @@ def user_settings():
                  models.EmailCreds.login: login, }, synchronize_session=False)
             al_db.db_session.commit()
 
-    return render_template('settings.html', email_creds=email_creds)
+    return render_template('settings.html', email_creds=email_creds, title='Settings')
 
 
 @app.route("/user/documents/", methods=['GET', 'POST'])
